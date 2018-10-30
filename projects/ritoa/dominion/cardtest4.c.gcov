@@ -1,0 +1,130 @@
+        -:    0:Source:cardtest4.c
+        -:    0:Graph:cardtest4.gcno
+        -:    0:Data:cardtest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2:Author: Aaron Rito
+        -:    3:Date: 10/29/18
+        -:    4:Client: CS362 assignment 3
+        -:    5:Project: unit test for "steward"
+        -:    6:Source: CS362 class
+        -:    7: */
+        -:    8:
+        -:    9:
+        -:   10:#include "dominion.h"
+        -:   11:#include "dominion_helpers.h"
+        -:   12:#include <string.h>
+        -:   13:#include <stdio.h>
+        -:   14:#include "rngs.h"
+        -:   15:#include <stdlib.h>
+        -:   16:
+        -:   17:#define TESTCARD "steward"
+        -:   18:void my_assert(int result);
+        1:   19:int main() {
+        1:   20:    int newCards = 0;
+        1:   21:    int discarded = 1;
+        1:   22:    int xtraCoins = 0;
+        1:   23:    int shuffledCards = 0;
+        -:   24:
+        -:   25:    int i, j, m;
+        1:   26:    int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+        -:   27:    int remove1, remove2;
+        1:   28:    int seed = 1000;
+        1:   29:    int numPlayers = 2;
+        1:   30:    int thisPlayer = 0;
+        -:   31:	struct gameState G, testG;
+        1:   32:	int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
+        -:   33:			sea_hag, tribute, smithy, council_room};
+        -:   34:
+        -:   35:	// initialize a game state and player cards
+        1:   36:	initializeGame(numPlayers, k, seed, &G);
+        -:   37:
+        1:   38:	printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
+        -:   39:
+        -:   40:	// ----------- TEST 1: choice1 = 1 = +2 cards --------------
+        1:   41:	printf("TEST 1: choice1 = 1 = +2 cards\n");
+        -:   42:
+        -:   43:	// copy the game state to a test case
+        1:   44:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   45:	choice1 = 1;
+        1:   46:	cardEffect(steward, choice1, choice2, choice3, &testG, handpos, &bonus);
+        -:   47:
+        1:   48:	newCards = 2;
+        1:   49:	xtraCoins = 0;
+        1:   50:	my_assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
+        1:   51:	my_assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
+        1:   52:	my_assert(testG.coins == G.coins + xtraCoins);
+        -:   53:
+        -:   54:	// ----------- TEST 2: choice1 = 2 = +2 coins --------------
+        -:   55:
+        -:   56:	// copy the game state to a test case
+        1:   57:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   58:	choice1 = 2;
+        1:   59:	cardEffect(steward, choice1, choice2, choice3, &testG, handpos, &bonus);
+        -:   60:
+        1:   61:	newCards = 0;
+        1:   62:	xtraCoins = 2;
+        1:   63:	my_assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
+        1:   64:	my_assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
+        1:   65:	my_assert(testG.coins == G.coins + xtraCoins);
+        -:   66:
+        -:   67:	// ----------- TEST 3: choice1 = 3 = trash two cards --------------
+        1:   68:	choice1 = 3;
+        -:   69:
+        -:   70:	// cycle through each eligible combination of 2 cards to trash
+        5:   71:	for (i=1; i<G.handCount[thisPlayer]; i++) {
+       10:   72:		for (j=i+1; j<G.handCount[thisPlayer]; j++) {
+        -:   73:
+        6:   74:			G.hand[thisPlayer][0] = steward;
+        6:   75:			G.hand[thisPlayer][1] = copper;
+        6:   76:			G.hand[thisPlayer][2] = duchy;
+        6:   77:			G.hand[thisPlayer][3] = estate;
+        6:   78:			G.hand[thisPlayer][4] = feast;
+        -:   79:
+        -:   80:			// copy the game state to a test case
+        6:   81:			memcpy(&testG, &G, sizeof(struct gameState));
+        -:   82:
+       36:   83:			for (m=0; m<testG.handCount[thisPlayer]; m++) {
+       30:   84:				printf("(%d)", testG.hand[thisPlayer][m]);
+        -:   85:			}
+        6:   86:			printf("; ");
+        -:   87:
+        6:   88:			choice2 = j;
+        6:   89:			choice3 = i;
+        6:   90:			remove1 = testG.hand[thisPlayer][i];
+        6:   91:			remove2 = testG.hand[thisPlayer][j];
+        6:   92:			cardEffect(steward, choice1, choice2, choice3, &testG, handpos, &bonus);
+        -:   93:
+        -:   94:			// tests that the removed cards are no longer in the player's hand
+       18:   95:			for (m=0; m<testG.handCount[thisPlayer]; m++) {
+       12:   96:				printf("(%d)", testG.hand[thisPlayer][m]);
+       12:   97:				my_assert(testG.hand[thisPlayer][m] != remove1);
+       12:   98:				my_assert(testG.hand[thisPlayer][m] != remove2);
+        -:   99:			}
+        6:  100:			printf(", expected: ");
+       30:  101:			for (m=1; m<G.handCount[thisPlayer]; m++) {
+       24:  102:				if (G.hand[thisPlayer][m] != G.hand[thisPlayer][i] && G.hand[thisPlayer][m] != G.hand[thisPlayer][j]) {
+       12:  103:					printf("(%d)", G.hand[thisPlayer][m]);
+        -:  104:				}
+        -:  105:			}
+        6:  106:			printf("\n");
+        -:  107:
+        -:  108:			// tests for the appropriate number of remaining cards
+        6:  109:			newCards = 0;
+        6:  110:			xtraCoins = 0;
+        6:  111:			discarded = 3;
+        6:  112:			my_assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
+        6:  113:			my_assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
+        -:  114:		}
+        -:  115:	}
+        1:  116:	return 0;
+        -:  117:}
+       42:  118:void my_assert(int result) {
+       42:  119:    if (result) 
+       41:  120:        printf("TEST PASSED!\n");
+        -:  121:    else 
+        1:  122:        printf("TEST FAILED!\n");
+       42:  123:}
+        -:  124:
+        -:  125:

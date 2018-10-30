@@ -1,0 +1,97 @@
+        -:    0:Source:unittest2.c
+        -:    0:Graph:unittest2.gcno
+        -:    0:Data:unittest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2:Author: Aaron Rito
+        -:    3:Date: 10/29/18
+        -:    4:Client: CS362 assignment 3
+        -:    5:Project: unit test for "cards in hand"
+        -:    6:Sources: CS362 class, https://github.com/caperren/Archives
+        -:    7: */
+        -:    8:#include "dominion.h"
+        -:    9:#include "dominion_helpers.h"
+        -:   10:#include <string.h>
+        -:   11:#include <stdio.h>
+        -:   12:#include <assert.h>
+        -:   13:#include "rngs.h"
+        -:   14:#define TESTCARD "cards in hand"
+        -:   15:void my_assert(int result);
+        1:   16:int main(int argc, char** argv) {
+        1:   17:    int seed = 1000;
+        1:   18:    int numPlayers = 2;
+        -:   19:    int player,i, j;
+        -:   20:    struct gameState G;
+        -:   21:    int temp_k[10];
+        1:   22:    int k[10] = {adventurer, salvager, village, minion, steward, cutpurse,
+        -:   23:                    sea_hag, tribute, smithy, council_room};
+        1:   24:    printf("----------------- Testing Unit: %s ----------------\n", TESTCARD);
+        1:   25:    initializeGame(numPlayers, k, seed, &G);
+        3:   26:    for(player = 0; player < numPlayers; player++)
+        -:   27:    {
+        -:   28:        /* BOUNDRY GET*/
+        -:   29:        // get opp players hand
+        2:   30:        G.whoseTurn = player;            
+        2:   31:        G.handCount[G.whoseTurn] = 5;
+        -:   32:        int opp_player_cards;
+        2:   33:        if (player == 0)
+        -:   34:        {
+        1:   35:            G.whoseTurn = player +1;            
+        1:   36:            G.handCount[G.whoseTurn] = 5;
+        1:   37:            opp_player_cards = numHandCards(&G);
+        1:   38:            G.whoseTurn = player;
+        -:   39:        }
+        -:   40:        else
+        -:   41:        {
+        1:   42:            G.whoseTurn = player -1;            
+        1:   43:            G.handCount[G.whoseTurn] = 5;
+        1:   44:            opp_player_cards = numHandCards(&G);
+        1:   45:            G.whoseTurn = player;
+        -:   46:        }           
+        -:   47:        // get kingdom supply
+       22:   48:        for(i = 0; i < 10; i++)    
+       20:   49:            temp_k[i] = supplyCount(k[i], &G);
+        -:   50:        // get victory supply
+        2:   51:        int estates = supplyCount(estate, &G);
+        2:   52:        int duchys = supplyCount(duchy, &G);
+        2:   53:        int provinces = supplyCount(province, &G);
+        -:   54:        /* END BOUNDRY GET*/
+        -:   55:        /* START RUN CARD*/ 
+       12:   56:        for(int card = 0; card < 5; card++)
+        -:   57:        {
+      280:   58:            for (int card_num = 0; card_num < 27; card_num++)
+        -:   59:            {
+      270:   60:                G.hand[player][card] = card_num;
+      270:   61:                my_assert(handCard(card, &G) == card_num);
+        -:   62:            }
+        -:   63:        }
+        -:   64:        /* END RUN CARD CHECK*/
+        -:   65:        /* BOUNDRY CHECKS*/
+        -:   66:        // ensure kingdom and victory piles the same
+       22:   67:        for(j = 0; j < 10; j++)    
+       20:   68:            my_assert(temp_k[j] == supplyCount(k[j], &G));
+        2:   69:        my_assert(estates == supplyCount(estate, &G));
+        2:   70:        my_assert(duchys == supplyCount(duchy, &G));
+        2:   71:        my_assert(provinces == supplyCount(province, &G)); 
+        -:   72:        // check player state
+        2:   73:        if (player == 0)
+        -:   74:        {
+        1:   75:            G.whoseTurn = player +1;            
+        1:   76:            G.handCount[G.whoseTurn] = 5;
+        1:   77:            opp_player_cards = numHandCards(&G);
+        -:   78:        }
+        -:   79:        else
+        -:   80:        {
+        1:   81:            G.whoseTurn = player -1;            
+        1:   82:            G.handCount[G.whoseTurn] = 5;
+        1:   83:            my_assert(opp_player_cards = numHandCards(&G));
+        -:   84:        }
+        -:   85:    }
+        -:   86:}
+      297:   87:void my_assert(int result){
+      297:   88:    if (result) 
+      297:   89:        printf("TEST PASSED!\n");
+        -:   90:    else 
+    #####:   91:        printf("TEST FAILED!\n");
+      297:   92:}

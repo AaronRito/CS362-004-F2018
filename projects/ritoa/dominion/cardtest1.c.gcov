@@ -1,0 +1,89 @@
+        -:    0:Source:cardtest1.c
+        -:    0:Graph:cardtest1.gcno
+        -:    0:Data:cardtest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2:Author: Aaron Rito
+        -:    3:Date: 10/29/18
+        -:    4:Client: CS362 assignment 3
+        -:    5:Project: unit test for "smithy"
+        -:    6:Source: CS362 class
+        -:    7: */
+        -:    8:#include "dominion.h"
+        -:    9:#include "dominion_helpers.h"
+        -:   10:#include <string.h>
+        -:   11:#include <stdio.h>
+        -:   12:#include "rngs.h"
+        -:   13:#include <stdlib.h>
+        -:   14:#define TESTCARD "Smithy"
+        -:   15:void my_assert(int result);
+        1:   16:int main(int argc, char** argv) {
+        1:   17:    int seed = 1000;
+        1:   18:    int numPlayers = 2;
+        -:   19:    int player,i, j;
+        -:   20:    struct gameState G;
+        -:   21:    int temp_k[10];
+        1:   22:    int k[10] = {adventurer, salvager, village, minion, steward, cutpurse,
+        -:   23:                    sea_hag, tribute, smithy, council_room};
+        1:   24:    printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
+        1:   25:    initializeGame(numPlayers, k, seed, &G);
+        3:   26:    for(player = 0; player < numPlayers; player++)
+        -:   27:    {
+        -:   28:        // get opp players hand
+        2:   29:        G.whoseTurn = player;            
+        2:   30:        G.handCount[G.whoseTurn] = 5;
+        -:   31:        int opp_player_cards;
+        2:   32:        if (player == 0)
+        -:   33:        {
+        1:   34:            G.whoseTurn = player +1;            
+        1:   35:            G.handCount[G.whoseTurn] = 5;
+        1:   36:            opp_player_cards = numHandCards(&G);
+        1:   37:            G.whoseTurn = player;
+        -:   38:        }
+        -:   39:        else
+        -:   40:        {
+        1:   41:            G.whoseTurn = player -1;            
+        1:   42:            G.handCount[G.whoseTurn] = 5;
+        1:   43:            opp_player_cards = numHandCards(&G);
+        1:   44:            G.whoseTurn = player;
+        -:   45:        }           
+        -:   46:        // get kingdom supply
+       22:   47:        for(i = 0; i < 10; i++)    
+       20:   48:            temp_k[i] = supplyCount(k[i], &G);
+        -:   49:        // get victory supply
+        2:   50:        int estates = supplyCount(estate, &G);
+        2:   51:        int duchys = supplyCount(duchy, &G);
+        2:   52:        int provinces = supplyCount(province, &G);
+        -:   53:        // run the card  
+        2:   54:        int num_of_cards = numHandCards(&G);
+        2:   55:        smithy_(1, 1, &G);
+        -:   56:        // ensure number of cards is correct
+        2:   57:        my_assert(numHandCards(&G) == num_of_cards + 2); 
+        -:   58:        // ensure kingdom and victory piles the same
+       22:   59:        for(j = 0; j < 10; j++)    
+       20:   60:            my_assert(temp_k[j] == supplyCount(k[j], &G));
+        2:   61:        my_assert(estates == supplyCount(estate, &G));
+        2:   62:        my_assert(duchys == supplyCount(duchy, &G));
+        2:   63:        my_assert(provinces == supplyCount(province, &G)); 
+        -:   64:        // check player state
+        2:   65:        if (player == 0)
+        -:   66:        {
+        1:   67:            G.whoseTurn = player +1;            
+        1:   68:            G.handCount[G.whoseTurn] = 5;
+        1:   69:            opp_player_cards = numHandCards(&G);
+        -:   70:        }
+        -:   71:        else
+        -:   72:        {
+        1:   73:            G.whoseTurn = player -1;            
+        1:   74:            G.handCount[G.whoseTurn] = 5;
+        1:   75:            my_assert(opp_player_cards = numHandCards(&G));
+        -:   76:        }
+        -:   77:    }
+        -:   78:}
+       29:   79:void my_assert(int result) {
+       29:   80:    if (result) 
+       27:   81:        printf("TEST PASSED!\n");
+        -:   82:    else 
+        2:   83:        printf("TEST FAILED!\n");
+       29:   84:}

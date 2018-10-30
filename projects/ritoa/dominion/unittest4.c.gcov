@@ -1,0 +1,69 @@
+        -:    0:Source:unittest4.c
+        -:    0:Graph:unittest4.gcno
+        -:    0:Data:unittest4.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2:Author: Aaron Rito
+        -:    3:Date: 10/29/18
+        -:    4:Client: CS362 assignment 3
+        -:    5:Project: unit test for "getCost"
+        -:    6:Sources: CS362 class
+        -:    7: */
+        -:    8:#include "dominion.h"
+        -:    9:#include "dominion_helpers.h"
+        -:   10:#include <string.h>
+        -:   11:#include <stdio.h>
+        -:   12:#include "rngs.h"
+        -:   13:
+        -:   14:void my_assert(int result);
+        2:   15:int main() {
+        -:   16:    int i;
+        2:   17:    int seed = 1000;
+        2:   18:    int numPlayer = 2;
+        2:   19:    int maxBonus = 10;
+        -:   20:    int player, handCount;
+        -:   21:    int bonus;
+        2:   22:    int k[10] = {adventurer, council_room, feast, gardens, mine
+        -:   23:               , remodel, smithy, village, baron, great_hall};
+        -:   24:    struct gameState G;
+        2:   25:    int maxHandCount = 5;
+        -:   26:    // arrays of all coppers, silvers, and golds
+        -:   27:    int coppers[MAX_HAND];
+        -:   28:    int silvers[MAX_HAND];
+        -:   29:    int golds[MAX_HAND];
+     1002:   30:    for (i = 0; i < MAX_HAND; i++)
+        -:   31:    {
+     1000:   32:        coppers[i] = copper;
+     1000:   33:        silvers[i] = silver;
+     1000:   34:        golds[i] = gold;
+        -:   35:    }
+        6:   36:    for (player = 0; player < numPlayer; player++)
+        -:   37:    {
+       24:   38:        for (handCount = 1; handCount <= maxHandCount; handCount++)
+        -:   39:        {
+      240:   40:            for (bonus = 0; bonus <= maxBonus; bonus++)
+        -:   41:            {
+      220:   42:                initializeGame(numPlayer, k, seed, &G); // initialize a new game
+      220:   43:                G.handCount[player] = handCount;                 // set the number of cards on hand
+      220:   44:                memcpy(G.hand[player], coppers, sizeof(int) * handCount); // set all the cards to copper
+      220:   45:                updateCoins(player, &G, bonus);
+      220:   46:                my_assert(G.coins == handCount * 1 + bonus); // check if the number of coins is correct
+      220:   47:                memcpy(G.hand[player], silvers, sizeof(int) * handCount); // set all the cards to silver
+      220:   48:                updateCoins(player, &G, bonus);
+      220:   49:                my_assert(G.coins == handCount * 2 + bonus); // check if the number of coins is correct
+      220:   50:                memcpy(G.hand[player], golds, sizeof(int) * handCount); // set all the cards to gold
+      220:   51:                updateCoins(player, &G, bonus);
+      220:   52:                my_assert(G.coins == handCount * 3 + bonus); // check if the number of coins is correct
+        -:   53:            }
+        -:   54:        }
+        -:   55:    }
+        -:   56:
+        2:   57:    return 0;
+        -:   58:}
+      660:   59:void my_assert(int result) {
+      660:   60:    if (result) 
+      660:   61:        printf("TEST PASSED!\n");
+        -:   62:    else 
+    #####:   63:        printf("TEST FAILED!\n");
+      660:   64:}
