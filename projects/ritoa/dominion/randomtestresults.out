@@ -5,40 +5,14 @@ randomtest1
 ----------------- Testing Card: Smithy ----------------
 260000 tests passed.
 30000 tests failed.
-File 'dominion.c'
-Lines executed:21.67% of 563
-Creating 'dominion.c.gcov'
+File 'randomtest1.c'
+Lines executed:100.00% of 50
+Creating 'randomtest1.c.gcov'
 
-randomtest1
------------------ Testing Card: Smithy ----------------
-260000 tests passed.
-30000 tests failed.
------------------ Testing Card: Smithy ----------------
-260000 tests passed.
-30000 tests failed.
-File 'dominion.c'
-Lines executed:21.67% of 563
-Creating 'dominion.c.gcov'
+File '<built-in>'
+No executable lines
+Removing '<built-in>.gcov'
 
-randomtest2
------------------ Testing Card: Village ----------------
-270005 tests passed.
-19995 tests failed.
------------------ Testing Card: Village ----------------
-270005 tests passed.
-19995 tests failed.
-File 'dominion.c'
-Lines executed:21.31% of 563
-Creating 'dominion.c.gcov'
-
-randomtestadventurer
-randomtest1
------------------ Testing Card: Smithy ----------------
-260000 tests passed.
-30000 tests failed.
------------------ Testing Card: Smithy ----------------
-260000 tests passed.
-30000 tests failed.
 File 'dominion.c'
 Lines executed:21.67% of 563
 Creating 'dominion.c.gcov'
@@ -50,29 +24,14 @@ randomtest2
 ----------------- Testing Card: Village ----------------
 270005 tests passed.
 19995 tests failed.
-File 'dominion.c'
-Lines executed:21.31% of 563
-Creating 'dominion.c.gcov'
+File 'randomtest2.c'
+Lines executed:100.00% of 51
+Creating 'randomtest2.c.gcov'
 
-randomtestadventurer
-randomtest1
------------------ Testing Card: Smithy ----------------
-260000 tests passed.
-30000 tests failed.
------------------ Testing Card: Smithy ----------------
-260000 tests passed.
-30000 tests failed.
-File 'dominion.c'
-Lines executed:21.67% of 563
-Creating 'dominion.c.gcov'
+File '<built-in>'
+No executable lines
+Removing '<built-in>.gcov'
 
-randomtest2
------------------ Testing Card: Village ----------------
-270005 tests passed.
-19995 tests failed.
------------------ Testing Card: Village ----------------
-270005 tests passed.
-19995 tests failed.
 File 'dominion.c'
 Lines executed:21.31% of 563
 Creating 'dominion.c.gcov'
@@ -84,6 +43,14 @@ randomtestadventurer
 ----------------- Testing Card: Adventurer ----------------
 260003 tests passed.
 29997 tests failed.
+File 'randomtestadventurer.c'
+Lines executed:100.00% of 51
+Creating 'randomtestadventurer.c.gcov'
+
+File '<built-in>'
+No executable lines
+Removing '<built-in>.gcov'
+
 File 'dominion.c'
 Lines executed:22.38% of 563
 Creating 'dominion.c.gcov'

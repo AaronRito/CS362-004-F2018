@@ -88,21 +88,21 @@ randomtestcard1.out:
 	echo "randomtest1" >> randomtestresults.out
 	./randomtest1 >> randomtestresults.out
 	randomtest1 >> randomtestresults.out
-	gcov randomtest1.c >> rantestresults.out
+	gcov randomtest1.c >> randomtestresults.out
 	gcov dominion.c >> randomtestresults.out
 randomtestcard2.out:
 	gcc -o randomtest2 randomtest2.c -g dominion.c rngs.c -g $(CFLAGS)
 	echo "randomtest2" >> randomtestresults.out
 	./randomtest2 >> randomtestresults.out
 	randomtest2 >> randomtestresults.out
-	gcov randomtest2.c >> rantestresults.out
+	gcov randomtest2.c >> randomtestresults.out
 	gcov dominion.c >> randomtestresults.out
 randomtestadventurer.out:
 	gcc -o randomtestadventurer randomtestadventurer.c -g dominion.c rngs.c -g $(CFLAGS)
 	echo "randomtestadventurer" >> randomtestresults.out
 	./randomtestadventurer >> randomtestresults.out
 	randomtestadventurer >> randomtestresults.out
-	gcov randomtestadventurer.c >> rantestresults.out
+	gcov randomtestadventurer.c >> randomtestresults.out
 	gcov dominion.c >> randomtestresults.out
 
 clean:
