@@ -1,0 +1,54 @@
+randomtest1
+----------------- Testing Card: Smithy ----------------
+260004 tests passed.
+29996 tests failed.
+----------------- Testing Card: Smithy ----------------
+260004 tests passed.
+29996 tests failed.
+File 'randomtest1.c'
+Lines executed:100.00% of 50
+Branches executed:100.00% of 14
+Taken at least once:100.00% of 14
+Calls executed:100.00% of 28
+Creating 'randomtest1.c.gcov'
+
+File '<built-in>'
+No executable lines
+No branches
+No calls
+Removing '<built-in>.gcov'
+
+File 'dominion.c'
+Lines executed:21.67% of 563
+Branches executed:18.23% of 417
+Taken at least once:14.87% of 417
+Calls executed:12.00% of 100
+Creating 'dominion.c.gcov'
+
+randomtestadventurer
+----------------- Testing Card: Adventurer ----------------
+260026 tests passed.
+29974 tests failed.
+----------------- Testing Card: Adventurer ----------------
+260026 tests passed.
+29974 tests failed.
+File 'randomtestadventurer.c'
+Lines executed:100.00% of 51
+Branches executed:100.00% of 18
+Taken at least once:94.44% of 18
+Calls executed:100.00% of 28
+Creating 'randomtestadventurer.c.gcov'
+
+File '<built-in>'
+No executable lines
+No branches
+No calls
+Removing '<built-in>.gcov'
+
+File 'dominion.c'
+Lines executed:22.20% of 563
+Branches executed:18.23% of 417
+Taken at least once:15.83% of 417
+Calls executed:12.00% of 100
+Creating 'dominion.c.gcov'
+

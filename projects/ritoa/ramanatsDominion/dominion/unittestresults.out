@@ -1,0 +1,102 @@
+cardtest1
+----------------- Testing Card: Smithy ----------------
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+File 'cardtest1.c'
+Lines executed:97.67% of 43
+Branches executed:100.00% of 12
+Taken at least once:91.67% of 12
+Calls executed:96.00% of 25
+Creating 'cardtest1.c.gcov'
+
+File '<built-in>'
+No executable lines
+No branches
+No calls
+Removing '<built-in>.gcov'
+
+File 'dominion.c'
+Lines executed:19.54% of 563
+Branches executed:17.27% of 417
+Taken at least once:13.43% of 417
+Calls executed:11.00% of 100
+Creating 'dominion.c.gcov'
+
+cardtest3
+----------------- Testing Card: Adventurer ----------------
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+TEST PASSED!
+File 'cardtest3.c'
+Lines executed:97.73% of 44
+Branches executed:100.00% of 16
+Taken at least once:81.25% of 16
+Calls executed:96.00% of 25
+Creating 'cardtest3.c.gcov'
+
+File '<built-in>'
+No executable lines
+No branches
+No calls
+Removing '<built-in>.gcov'
+
+File 'dominion.c'
+Lines executed:18.65% of 563
+Branches executed:17.27% of 417
+Taken at least once:13.43% of 417
+Calls executed:10.00% of 100
+Creating 'dominion.c.gcov'
+
